@@ -20,6 +20,8 @@ public class model {
 		System.out.println();
 	}
 	
+	
+	
 	public static void readInput() {
 		projects = new LinkedList<>();
 		providers = new LinkedList<>();
