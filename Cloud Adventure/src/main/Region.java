@@ -16,8 +16,8 @@ public class Region {
 		this.name = name;
 		this.packageNumber = packageNumber;
 		this.packageCost = packageCost;
-		this.servicePerPackage = new LinkedList<>();
-		this.regionCountryLatency = new LinkedList<>();
+		this.servicePerPackage = new LinkedList<>(servicePerPackage);
+		this.regionCountryLatency = new LinkedList<>(regionCountryLatency);
 	}
 	
 	

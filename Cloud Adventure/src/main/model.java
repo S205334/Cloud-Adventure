@@ -61,7 +61,7 @@ public class model {
 					line = br.readLine(); // [available packages] [package unit cost] [units of service per package 1] ... 0 ... [units of service per package S] 
 					int availablePackages = Integer.valueOf(line.split(" ")[0]);
 					double cost = Double.valueOf(line.split(" ")[1]);
-					List<Integer> unitsPerService = new LinkedList<>();
+					List<Integer> unitsPerService = new LinkedList<Integer>();
 					
 					for(int i = 2; i<services.size()+2; i++)
 						unitsPerService.add(Integer.valueOf(line.split(" ")[i]));
@@ -72,11 +72,24 @@ public class model {
 					for(String s : line.split(" ")) 
 						latency.add(Integer.valueOf(s));
 					
-					p.addRegion(new Region(nameRegion, availablePackages, cost, new LinkedList<>(unitsPerService),  new LinkedList<>(latency)));
+					p.addRegion(new Region(nameRegion, availablePackages, cost, unitsPerService, latency));
 					
 					line = br.readLine();
 				}
 
+			}
+			
+			while(line != null) {
+				
+				List<Integer> unitsPerService = new LinkedList<Integer>();
+				for(int i = 2; i<services.size()+2; i++)
+					unitsPerService.add(Integer.valueOf(line.split(" ")[i]));
+				
+				projects.add(new Project(line.split(" ")[1], 
+						unitsPerService,
+						Integer.valueOf(line.split(" ")[0])));
+				
+				line = br.readLine();
 			}
 					
 			br.close();
