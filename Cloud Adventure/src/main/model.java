@@ -8,26 +8,27 @@ import java.util.List;
 
 public class model {
 	
-	private List<Project> projects;
-	private List<Provider> providers;
-	private List<String> services;
-	private List<String> country;
+	private static List<Project> projects;
+	private static List<Provider> providers;
+	private static List<String> services;
+	private static List<String> country;
 	
 	public static void main(String[] args) {
 
+		readInput();
 		
-		
-
+		System.out.println();
 	}
 	
-	public void readInput() {
+	public static void readInput() {
 		projects = new LinkedList<>();
 		providers = new LinkedList<>();
 		services = new LinkedList<>();
+		country = new LinkedList<>();
 		
 		try {
 			
-			FileReader fr = new FileReader("input.in.txt");
+			FileReader fr = new FileReader("src/first_adventure.in");
 			BufferedReader br = new BufferedReader(fr);
 			String line;
 			
@@ -40,20 +41,43 @@ public class model {
 				for(String s : line.split(" "))
 					country.add(s);
 			
-			if((line = br.readLine()) != null) // [provider 1] [num. of regions R1] 
-				providers.add(new Provider(line.split(" ")[0], Integer.valueOf(line.split(" ")[1])));
+			line = br.readLine();
 			
-			if((line = br.readLine()) != null) // [region 1]
+			while (line != null) {
 				
+				Provider p;
+
+				if(line.split(" ").length == 2) { // [provider 1] [num. of regions R1]
+					p = new Provider(line.split(" ")[0], Integer.valueOf(line.split(" ")[1]));
+					providers.add(p);
+				} else 
+					break;
 				
-						
-			
-			
-			while ((line = br.readLine()) != null) {
-			// Aggiungo word alla struttura dati
+				line = br.readLine();
+				
+				while (line.split(" ").length == 1 ) {
+				
+					String nameRegion = line; // [region 1]
+					line = br.readLine(); // [available packages] [package unit cost] [units of service per package 1] ... 0 ... [units of service per package S] 
+					int availablePackages = Integer.valueOf(line.split(" ")[0]);
+					double cost = Double.valueOf(line.split(" ")[1]);
+					List<Integer> unitsPerService = new LinkedList<>();
+					
+					for(int i = 2; i<services.size()+2; i++)
+						unitsPerService.add(Integer.valueOf(line.split(" ")[i]));
+					
+					List<Integer> latency = new LinkedList<>();
+					line = br.readLine(); // [latency 1] [latency 2] … [latency C] 
+					
+					for(String s : line.split(" ")) 
+						latency.add(Integer.valueOf(s));
+					
+					p.addRegion(new Region(nameRegion, availablePackages, cost, new LinkedList<>(unitsPerService),  new LinkedList<>(latency)));
+					
+					line = br.readLine();
+				}
 
 			}
-			
 					
 			br.close();
 				
