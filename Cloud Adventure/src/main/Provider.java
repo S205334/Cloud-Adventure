@@ -7,7 +7,19 @@ import java.util.Map;
 
 public class Provider {
 	private String name;
-	private Integer RegionNumber;
-	private List Regions;
+	private Integer regionNumber;
+	private List<Region> regions;
+	
+	public Provider(String name, Integer regionNumber) {
+		super();
+		this.name = name;
+		this.regionNumber = regionNumber;
+		this.regions = new LinkedList<>();
+	}
+	
+	public void addRegion(Region r) {
+		regions.add(r);
+	}
 
+	
 }
